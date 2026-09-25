@@ -1,0 +1,25 @@
+Resume: Jane Doe
+Contact: jane.doe@email.com | 555-0199
+
+Skills: 
+Python, React, FastAPI, Machine Learning, Digital Strategy, Data Analysis
+
+Experience:
+-----------------------
+Company: Global Tech Innovations
+Title: Digital Catalyst
+Dates: Jan 2021 - Present
+Description: Synergized cross-functional teams to actualize holistic digital transformations. Leveraged agile methodologies to pivot paradigms. Interfaced with key stakeholders to elevate key performance indicators. 
+
+Company: Startup Hub
+Title: Software Engineer
+Dates: Jan 2016 - Dec 2018
+Description: Built backend APIs using Node.js and Python. Managed a small team of 3 developers and scaled the main platform to 10k users.
+
+Education:
+-----------------------
+B.S. in Computer Science - State University (2012 - 2016)
+
+Hobbies & Interests:
+-----------------------
+Competitive Underwater Basket Weaving, 18th-century French Poetry Analysis, Professional Yo-Yo Champion.

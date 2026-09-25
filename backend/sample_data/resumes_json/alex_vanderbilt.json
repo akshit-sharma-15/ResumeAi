@@ -1,0 +1,120 @@
+{
+  "candidate": {
+    "name": "Alex Vanderbilt",
+    "email": "alex.vanderbilt@protonmail.com",
+    "phone": "+1-412-555-0193",
+    "location": "Pittsburgh, PA",
+    "linkedin": "linkedin.com/in/alexvanderbilt",
+    "github": "github.com/avanderbilt"
+  },
+  "summary": "Staff-level platform architect with 14 years of experience designing distributed infrastructure at scale. Deep expertise in Kubernetes orchestration, service mesh, and cloud-native migrations. Passionate about developer experience and platform reliability.",
+  "education": [
+    {
+      "degree": "M.S. Computer Science",
+      "institution": "Carnegie Mellon University",
+      "graduation_year": 2012,
+      "gpa": 3.87,
+      "focus": "Distributed Systems & Networking"
+    },
+    {
+      "degree": "B.S. Computer Engineering",
+      "institution": "Penn State University",
+      "graduation_year": 2010,
+      "gpa": 3.62
+    }
+  ],
+  "experience": [
+    {
+      "title": "Staff Platform Architect (L6)",
+      "company": "Dataflux Systems",
+      "location": "San Francisco, CA (Remote)",
+      "start_date": "2023-02",
+      "end_date": "present",
+      "responsibilities": [
+        "Architected zero-downtime migration of 240+ microservices from ECS to Kubernetes (EKS), reducing infrastructure costs by 38%.",
+        "Designed and deployed an internal developer platform (IDP) serving 400+ engineers, achieving 94% adoption within 6 months.",
+        "Led a cross-functional SRE guild to establish SLO frameworks, reducing P1 incident MTTR from 47min to 12min.",
+        "Implemented GitOps pipelines with ArgoCD and Crossplane for multi-cloud provisioning across AWS and GCP."
+      ]
+    },
+    {
+      "_grey_area": "EMPLOYMENT GAP — 24 months with no verifiable employer",
+      "_flag": "Chronology Anomaly",
+      "title": "Independent Consultant",
+      "company": "Self-Employed",
+      "location": "Pittsburgh, PA",
+      "start_date": "2021-01",
+      "end_date": "2023-01",
+      "responsibilities": [
+        "Provided advisory services on cloud migration strategies for undisclosed clients.",
+        "Explored personal research interests in distributed consensus algorithms."
+      ],
+      "notes": "No client references provided. LinkedIn shows this period as a gap. The candidate verbally mentioned 'personal sabbatical' during a prior screening call."
+    },
+    {
+      "title": "Senior Infrastructure Engineer",
+      "company": "Apex Cloud Corp",
+      "location": "Seattle, WA",
+      "start_date": "2017-06",
+      "end_date": "2020-12",
+      "responsibilities": [
+        "Built Terraform modules consumed by 12 product teams, standardizing infrastructure-as-code across 3 AWS regions.",
+        "Designed a multi-tenant Kubernetes platform handling 15,000 pods with custom admission controllers.",
+        "Mentored 8 junior engineers through a structured technical growth program.",
+        "Contributed to open-source Envoy proxy filters adopted by 200+ external organizations."
+      ]
+    },
+    {
+      "title": "Platform Engineer II",
+      "company": "Meridian Financial Technologies",
+      "location": "New York, NY",
+      "start_date": "2014-03",
+      "end_date": "2017-05",
+      "responsibilities": [
+        "Migrated legacy monolith (2.1M LOC Java) to microservices architecture, reducing deploy cycles from weekly to 14x/day.",
+        "Implemented service discovery with Consul and built custom health-check orchestration.",
+        "Managed on-prem bare-metal clusters (480 nodes) running Mesos/Marathon before transitioning to Kubernetes."
+      ]
+    },
+    {
+      "title": "Junior Systems Engineer",
+      "company": "TechBridge Solutions",
+      "location": "Pittsburgh, PA",
+      "start_date": "2012-06",
+      "end_date": "2014-02",
+      "responsibilities": [
+        "Automated server provisioning using Puppet and Ansible, reducing setup time from 4 hours to 20 minutes.",
+        "Maintained CI/CD pipelines on Jenkins for 6 product teams.",
+        "On-call rotation for production systems serving 2M daily active users."
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["Go", "Python", "Rust", "Bash", "HCL"],
+    "infrastructure": ["Kubernetes", "Terraform", "Docker", "Helm", "ArgoCD", "Crossplane"],
+    "cloud": ["AWS (Solutions Architect Pro)", "GCP", "Azure (fundamentals)"],
+    "observability": ["Prometheus", "Grafana", "Datadog", "OpenTelemetry"],
+    "databases": ["PostgreSQL", "Redis", "DynamoDB", "CockroachDB"],
+    "other": ["gRPC", "Envoy", "Istio", "Kafka", "NATS"]
+  },
+  "certifications": [
+    { "name": "AWS Solutions Architect – Professional", "year": 2019 },
+    { "name": "Certified Kubernetes Administrator (CKA)", "year": 2018 },
+    { "name": "HashiCorp Certified: Terraform Associate", "year": 2020 }
+  ],
+  "publications": [
+    {
+      "title": "Practical Patterns for Multi-Tenant Kubernetes Isolation",
+      "venue": "KubeCon NA 2019",
+      "year": 2019
+    }
+  ],
+  "flags": [
+    {
+      "type": "Chronology Anomaly",
+      "severity": "medium",
+      "detail": "24-month hiatus (Jan 2021 – Jan 2023). Listed as 'Independent Consultant / Self-Employed' with no verifiable clients or references. LinkedIn profile shows this period blank.",
+      "recommendation": "Investigate gap during structured interview. Request client references or portfolio artifacts from this period."
+    }
+  ]
+}

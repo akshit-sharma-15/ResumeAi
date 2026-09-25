@@ -1,0 +1,92 @@
+MARCUS JOHNSON
+Software Engineer III
+m.johnson@outlook.com | +1-312-555-0629 | Chicago, IL
+linkedin.com/in/marcusjohnson-swe
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+
+Full-stack engineer with 6 years of experience across frontend, backend, and
+DevOps. Quick learner who has pivoted across multiple technology stacks.
+Comfortable in high-growth, ambiguous environments.
+
+================================================================================
+EXPERIENCE
+================================================================================
+
+SOFTWARE ENGINEER III                                      Jan 2024 – Present
+Crescent Health (Series B healthtech) | Chicago, IL
+
+  • Building HIPAA-compliant patient portal using React, Node.js, and
+    PostgreSQL.
+  • Implemented real-time appointment scheduling with WebSocket-based
+    notifications.
+  • Set up CI/CD pipelines with GitHub Actions and deployed to AWS ECS.
+
+FULL STACK DEVELOPER                                       Feb 2023 – Dec 2023
+Orion Digital Agency | Chicago, IL
+
+  • Developed client-facing dashboards using Next.js and Tailwind CSS.
+  • Integrated third-party APIs (Stripe, Twilio, SendGrid) for SaaS clients.
+  • Departed after 10 months due to company-wide layoffs (RIF of 40% staff).
+
+  [Tenure: 10 months — departure due to reduction in force, not voluntary]
+
+BACKEND DEVELOPER                                          May 2022 – Jan 2023
+QuantumLeap Analytics | Remote
+
+  • Built data ingestion pipelines using Python and Apache Kafka.
+  • Developed REST APIs with FastAPI for internal analytics dashboard.
+  • Left after 7 months; role was misrepresented during hiring (promised ML
+    work, actual work was CRUD APIs).
+
+  [Tenure: 7 months — shortest stint. Candidate claims role was mis-sold
+   during interviews. This is a common concern with early-stage companies.]
+
+JUNIOR SOFTWARE ENGINEER                                   Aug 2020 – Apr 2022
+BlueLine Systems | Chicago, IL
+
+  • Maintained and extended a legacy Java/Spring Boot application for
+    logistics management.
+  • Wrote unit and integration tests, improving code coverage from 34% to 78%.
+  • Participated in on-call rotation for production support.
+
+  [Tenure: 1 year 8 months — longest engineering tenure to date]
+
+IT SUPPORT TECHNICIAN (Contract/Temp)                      Jun 2018 – Jul 2020
+Various Small Businesses | Chicago, IL
+
+  • Provided desktop support and basic network troubleshooting.
+  • Self-taught web development during evenings (completed freeCodeCamp
+    and The Odin Project).
+  • Freelanced building WordPress sites for local businesses.
+
+  [NOTE: ~2-year period between graduation and first software engineering
+   role. Candidate was doing IT support and self-studying to transition
+   into development. This is common for career-changers but may indicate
+   gaps in formal CS training.]
+
+================================================================================
+EDUCATION
+================================================================================
+
+B.S. INFORMATION SYSTEMS                                   University of Illinois at Chicago, 2018
+  GPA: 3.21/4.0 | Minor: Business Administration
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+Languages:   JavaScript, TypeScript, Python, Java, SQL
+Frontend:    React, Next.js, Tailwind CSS, HTML/CSS
+Backend:     Node.js, Express, FastAPI, Spring Boot
+Databases:   PostgreSQL, MongoDB, Redis
+DevOps:      Docker, GitHub Actions, AWS (ECS, S3, RDS), Terraform (basic)
+Other:       Kafka, WebSockets, REST API design
+
+================================================================================
+CERTIFICATIONS
+================================================================================
+
+  • AWS Certified Cloud Practitioner (2022)

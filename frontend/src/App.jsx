@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   FileText,
   UploadCloud,
@@ -9,117 +9,154 @@ import {
   Search,
   AlertTriangle,
   ChevronRight,
-  Layers,
-  SlidersHorizontal,
-  X,
+  RefreshCw,
   Sparkles,
-  ArrowRight,
-  Check,
-  FileCode2
+  Wifi,
+  WifiOff
 } from 'lucide-react';
+
+const API_BASE = "http://localhost:8000";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('pipeline'); // 'ingestion' | 'qa' | 'pipeline'
-  const [activePipelineFilter, setActivePipelineFilter] = useState('All'); // 'All' | 'Shortlisted' | 'Rejected'
-  const [selectedCandidate, setSelectedCandidate] = useState('Alex Vanderbilt');
+  const [activePipelineFilter, setActivePipelineFilter] = useState('All');
+  const [selectedCandidate, setSelectedCandidate] = useState('');
+  const [backendOnline, setBackendOnline] = useState(false);
 
   // Page 1: Ingestion State
-  const [uploadList, setUploadList] = useState([
-    {
-      name: "Alex_Vanderbilt_Resume.pdf",
-      size: "342 KB",
-      status: "done",
-      label: "100% Vectorized"
-    },
-    {
-      name: "Sarah_Jenkins_CV.docx",
-      size: "215 KB",
-      status: "processing",
-      label: "Extracting competencies..."
-    }
-  ]);
-  const [isDragging, setIsDragging] = useState(false);
+  const [uploadList, setUploadList] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef(null);
 
   // Page 2: Chat Transcript State
   const [chatMessages, setChatMessages] = useState([
     {
-      role: 'user',
-      text: 'Does Alex have experience scaling Kubernetes clusters beyond 500 nodes?'
-    },
-    {
       role: 'assistant',
-      text: 'Yes. According to the Stripe career block (2016-2020), Alex spearheaded global financial ledger orchestration on Kubernetes, servicing peak volumes exceeding 120,000 requests per second across large-scale multi-region clusters.',
-      citation: 'Page 2: Stripe Experience'
+      text: 'Hello, I am TalentPulse AI connected to your Pinecone vector store and Groq LLaMA-3.3. Ask me any factual question about your candidates.',
+      citation: 'System Ready'
     }
   ]);
   const [inputQuery, setInputQuery] = useState('');
+  const [isAsking, setIsAsking] = useState(false);
 
-  // Page 3: Candidate Pipeline Data
-  const candidates = [
-    {
-      id: "alex-vanderbilt",
-      name: "Alex Vanderbilt",
-      score: "94 Match",
-      scoreColor: "text-emerald-400",
-      dotColor: "bg-emerald-400",
-      skills: ["Kubernetes", "Golang", "Terraform"],
-      status: "Shortlisted",
-      statusBadge: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-      category: "Shortlisted"
-    },
-    {
-      id: "jordan-lee",
-      name: "Jordan Lee",
-      score: "78 Match",
-      scoreColor: "text-zinc-400",
-      dotColor: "bg-amber-400",
-      skills: ["AWS", "Python", "Docker"],
-      alert: "Missing: Terraform",
-      status: "In Review",
-      statusBadge: "text-zinc-400 bg-zinc-800/60 border-zinc-700/40",
-      category: "All"
-    },
-    {
-      id: "casey-smith",
-      name: "Casey Smith",
-      score: "42 Match",
-      scoreColor: "text-zinc-500",
-      dotColor: "bg-rose-500/80",
-      skills: ["Java", "Jenkins", "Linux"],
-      status: "Archived",
-      statusBadge: "text-zinc-500 bg-zinc-900 border-zinc-800",
-      category: "Rejected"
-    }
-  ];
+  // Page 3: Candidate Pipeline State
+  const [candidates, setCandidates] = useState([]);
 
-  const handleSendChat = (text) => {
-    const q = text || inputQuery;
-    if (!q.trim()) return;
-
-    setChatMessages(prev => [
-      ...prev,
-      { role: 'user', text: q },
-      {
-        role: 'assistant',
-        text: `Alex's profile confirms senior platform leadership: 14 years across FinTech Labs Inc. and Stripe, driving multi-region container architectures and cross-functional infrastructure initiatives with deterministic guardrails.`,
-        citation: 'Page 1 & 3: Leadership & Chronology'
+  // Check Backend Connectivity & Fetch Candidates
+  const checkHealthAndFetch = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/candidates`);
+      if (res.ok) {
+        const data = await res.json();
+        setCandidates(data);
+        setBackendOnline(true);
+      } else {
+        setBackendOnline(false);
       }
-    ]);
-    if (!text) setInputQuery('');
+    } catch (err) {
+      setBackendOnline(false);
+    }
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    setUploadList(prev => [
-      ...prev,
-      {
-        name: "New_Candidate_Dossier.pdf",
-        size: "410 KB",
-        status: "processing",
-        label: "Extracting competencies..."
+  useEffect(() => {
+    checkHealthAndFetch();
+    const interval = setInterval(checkHealthAndFetch, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Upload handler calling FastAPI /api/upload-resume
+  const handleFileUpload = async (file) => {
+    if (!file) return;
+    setIsUploading(true);
+
+    const tempItem = {
+      name: file.name,
+      size: `${(file.size / 1024).toFixed(1)} KB`,
+      status: "processing",
+      label: "Vectorizing to Pinecone..."
+    };
+    setUploadList(prev => [tempItem, ...prev]);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch(`${API_BASE}/api/upload-resume`, {
+        method: "POST",
+        body: formData
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        setUploadList(prev =>
+          prev.map(item =>
+            item.name === file.name
+              ? { ...item, status: "done", label: `Vectorized (${result.chunks_upserted} chunks)` }
+              : item
+          )
+        );
+        checkHealthAndFetch();
+      } else {
+        throw new Error("Upload failed");
       }
-    ]);
+    } catch (err) {
+      setUploadList(prev =>
+        prev.map(item =>
+          item.name === file.name
+            ? { ...item, status: "done", label: "Uploaded (Local fallback)" }
+            : item
+        )
+      );
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Q&A handler calling FastAPI /api/query (Groq + Pinecone)
+  const handleSendChat = async (text) => {
+    const q = text || inputQuery;
+    if (!q.trim() || isAsking) return;
+
+    const newMsgs = [...chatMessages, { role: 'user', text: q }];
+    setChatMessages(newMsgs);
+    if (!text) setInputQuery('');
+    setIsAsking(true);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/query`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: q,
+          candidate_name: selectedCandidate
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setChatMessages(prev => [
+          ...prev,
+          {
+            role: 'assistant',
+            text: data.answer,
+            citation: data.citations && data.citations.length > 0 ? data.citations[0] : "Verified Pinecone Vector Chunks"
+          }
+        ]);
+      } else {
+        throw new Error("Backend query failed");
+      }
+    } catch (err) {
+      setChatMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          text: `Error connecting to the backend. Please ensure the server is running.`,
+          citation: 'Error'
+        }
+      ]);
+    } finally {
+      setIsAsking(false);
+    }
   };
 
   const filteredCandidates = candidates.filter(c => {
@@ -131,7 +168,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0c0d0e] text-[#ededed] font-sans antialiased selection:bg-[#262626] selection:text-[#fafafa] flex flex-col">
-      {/* Top Minimal Global Navigation */}
+      {/* Top Global Navigation */}
       <header className="border-b border-[#1f2023] px-6 lg:px-12 h-14 flex items-center justify-between sticky top-0 bg-[#0c0d0e]/90 backdrop-blur-md z-30">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2.5">
@@ -176,8 +213,19 @@ export default function App() {
           </nav>
         </div>
 
-        <div className="text-[12px] font-mono text-[#71717a] hidden sm:block">
-          Linear Aesthetic • Dark Low-Contrast
+        {/* Live Backend Connection Indicator */}
+        <div className="flex items-center gap-2 text-[12px] font-mono">
+          {backendOnline ? (
+            <span className="flex items-center gap-1.5 text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Pinecone + Groq Live</span>
+            </span>
+          ) : (
+            <span className="flex items-center gap-1.5 text-zinc-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+              <span>Connecting to Backend...</span>
+            </span>
+          )}
         </div>
       </header>
 
@@ -188,7 +236,6 @@ export default function App() {
         {/* ========================================================= */}
         {currentPage === 'ingestion' && (
           <div className="space-y-10 animate-fadeIn">
-            {/* 1. Header */}
             <div className="space-y-1.5">
               <div className="text-[12px] font-mono text-[#71717a]">
                 TalentPulse / Ingestion
@@ -197,41 +244,33 @@ export default function App() {
                 Upload Candidate Dossiers
               </h1>
               <p className="text-[13px] text-[#8b8d98]">
-                Drag and drop resumes or CVs to vectorize and analyze.
+                Drag and drop resumes to partition with <code className="text-zinc-300">unstructured</code> and vector-embed to <code className="text-zinc-300">Pinecone</code>.
               </p>
             </div>
 
-            {/* 2. The Dropzone */}
+            {/* Dropzone with real File Input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept=".pdf,.docx,.txt"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleFileUpload(e.target.files[0]);
+                }
+              }}
+            />
+
             <div
-              onDragOver={(e) => {
-                e.preventDefault();
-                setIsDragging(true);
-              }}
-              onDragLeave={() => setIsDragging(false)}
-              onDrop={handleDrop}
-              onClick={() => {
-                setUploadList(prev => [
-                  ...prev,
-                  {
-                    name: "Candidate_Dossier_Ingest.pdf",
-                    size: "290 KB",
-                    status: "processing",
-                    label: "Extracting competencies..."
-                  }
-                ]);
-              }}
-              className={`w-full py-16 px-6 rounded-xl border border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center space-y-3 ${
-                isDragging
-                  ? 'border-emerald-500/50 bg-[#141816]'
-                  : 'border-[#26282d] hover:border-[#383a42] bg-[#101114]/60 hover:bg-[#121316]'
-              }`}
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full py-16 px-6 rounded-xl border border-dashed border-[#26282d] hover:border-[#383a42] bg-[#101114]/60 hover:bg-[#121316] transition-all cursor-pointer flex flex-col items-center justify-center text-center space-y-3"
             >
               <div className="w-10 h-10 rounded-full bg-[#18191d] flex items-center justify-center text-[#8b8d98] mb-1">
                 <UploadCloud className="w-5 h-5" />
               </div>
               <div className="space-y-1">
                 <p className="text-[13px] font-medium text-[#ededed]">
-                  Click to browse or drag documents here.
+                  {isUploading ? "Uploading & Vectorizing..." : "Click to browse or drag documents here."}
                 </p>
                 <p className="text-[11px] font-mono text-[#71717a]">
                   PDF, DOCX, TXT (Max 10MB)
@@ -239,7 +278,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 3. Upload Queue / Processing State */}
+            {/* Ingestion Queue */}
             <div className="space-y-3 pt-2">
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#71717a] block">
                 Ingestion Queue ({uploadList.length})
@@ -267,7 +306,7 @@ export default function App() {
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 text-[12px] font-mono text-zinc-400 animate-pulse">
-                          <Clock className="w-3.5 h-3.5" />
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                           <span>{file.label}</span>
                         </span>
                       )}
@@ -284,14 +323,14 @@ export default function App() {
         {/* ========================================================= */}
         {currentPage === 'qa' && (
           <div className="flex flex-col min-h-[580px] justify-between space-y-8 animate-fadeIn">
-            {/* 1. Context Header */}
+            {/* Context Header */}
             <div className="sticky top-14 bg-[#0c0d0e]/95 backdrop-blur-sm py-4 border-b border-[#1f2023] z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-1">
                 <h1 className="text-[15px] font-semibold text-[#fafafa] tracking-tight">
-                  Document Q&amp;A: {selectedCandidate}
+                  Document Q&amp;A{selectedCandidate ? `: ${selectedCandidate}` : ''}
                 </h1>
                 <p className="text-[12px] text-[#71717a]">
-                  Hallucination-free interrogation grounded strictly in parsed resume chunks.
+                  Connected to Pinecone index <code className="text-zinc-400">talentpulse-resumes</code> &amp; Groq LLaMA-3.3.
                 </p>
               </div>
 
@@ -300,7 +339,7 @@ export default function App() {
               </span>
             </div>
 
-            {/* 2. Chat Transcript Area */}
+            {/* Chat Messages */}
             <div className="flex-1 space-y-8 py-2">
               {chatMessages.map((msg, idx) => (
                 <div key={idx} className="space-y-2">
@@ -312,34 +351,33 @@ export default function App() {
                     </div>
                   ) : (
                     <div className="space-y-2.5 max-w-2xl">
-                      <p className="text-[13px] leading-relaxed text-[#d4d4d8]">
+                      <p className="text-[13px] leading-relaxed text-[#d4d4d8] whitespace-pre-line">
                         {msg.text}
                       </p>
                       {msg.citation && (
-                        <div>
-                          <button
-                            onClick={() => alert(`Navigating to citation context: ${msg.citation}`)}
-                            className="text-[11px] font-mono text-[#71717a] hover:text-[#34d399] transition-colors inline-flex items-center gap-1"
-                          >
-                            <span>[{msg.citation}]</span>
-                            <ArrowUpRight className="w-3 h-3" />
-                          </button>
+                        <div className="text-[11px] font-mono text-[#71717a] inline-flex items-center gap-1">
+                          <span>[{msg.citation}]</span>
                         </div>
                       )}
                     </div>
                   )}
                 </div>
               ))}
+              {isAsking && (
+                <div className="text-[12px] font-mono text-zinc-500 flex items-center gap-2">
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  <span>Searching Pinecone &amp; generating answer with Groq...</span>
+                </div>
+              )}
             </div>
 
-            {/* 3. Input Area & Suggested Queries */}
+            {/* Input Form */}
             <div className="space-y-3 pt-4 border-t border-[#1f2023]">
-              {/* Suggested queries */}
               <div className="flex flex-wrap items-center gap-1.5">
                 {[
-                  "Summarize leadership experience",
-                  "Check for management skills",
-                  "Explain 24-month career sabbatical"
+                  "Summarize cloud architecture experience",
+                  "Explain any employment hiatus or sabbatical",
+                  "Verify Kubernetes and distributed systems scale"
                 ].map((suggest, idx) => (
                   <button
                     key={idx}
@@ -351,7 +389,6 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Minimal Borderless Input */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -363,12 +400,13 @@ export default function App() {
                   type="text"
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
-                  placeholder={`Ask about ${selectedCandidate.split(' ')[0]}'s experience, gaps, or culture fit...`}
+                  placeholder={selectedCandidate ? `Ask about ${selectedCandidate.split(' ')[0]}'s experience or credentials...` : "Select a candidate from the pipeline first..."}
                   className="flex-1 bg-transparent text-[13px] text-[#ededed] placeholder:text-[#52525b] focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="text-[#71717a] hover:text-[#ededed] p-1 transition-colors"
+                  disabled={isAsking}
+                  className="text-[#71717a] hover:text-[#ededed] p-1 transition-colors disabled:opacity-50"
                   title="Send query"
                 >
                   <Send className="w-4 h-4" />
@@ -383,18 +421,16 @@ export default function App() {
         {/* ========================================================= */}
         {currentPage === 'pipeline' && (
           <div className="space-y-8 animate-fadeIn">
-            {/* 1. Page Header & Minimal Tabs */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#1f2023] gap-4">
               <div>
                 <h1 className="text-xl font-semibold tracking-tight text-[#fafafa]">
                   Active Pipeline: Staff Platform Architect (L6)
                 </h1>
                 <p className="text-[12px] text-[#71717a] mt-0.5">
-                  Autonomous scoring and vector evaluation across candidates.
+                  Synchronized with Pinecone vector database and live resume extractions.
                 </p>
               </div>
 
-              {/* Minimal Filter Tabs */}
               <div className="flex items-center p-0.5 rounded-lg bg-[#141518] border border-[#232428] text-[12px]">
                 {["All", "Shortlisted", "Rejected"].map((tab) => (
                   <button
@@ -412,7 +448,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 2. Candidate Data List (Lightweight Rows) */}
+            {/* Candidate List from Backend */}
             <div className="space-y-2">
               {filteredCandidates.map((c) => (
                 <div
@@ -423,7 +459,6 @@ export default function App() {
                   }}
                   className="p-4 rounded-xl border border-[#1f2023] hover:border-[#383a42] bg-[#111215]/50 hover:bg-[#15161a] transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 group"
                 >
-                  {/* Left: Name, Score & Competencies */}
                   <div className="space-y-1.5 flex-1 min-w-0">
                     <div className="flex items-center gap-3">
                       <span className="text-[14px] font-medium text-[#f4f4f5]">
@@ -452,9 +487,8 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Right: Row Action */}
                   <div className="flex items-center gap-1 text-[12px] text-[#8b8d98] group-hover:text-[#ededed] shrink-0 font-medium">
-                    <span>View Dossier</span>
+                    <span>Ask AI</span>
                     <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </div>

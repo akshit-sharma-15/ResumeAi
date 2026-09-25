@@ -1,0 +1,114 @@
+{
+  "candidate": {
+    "name": "Marcus Johnson",
+    "email": "m.johnson@outlook.com",
+    "phone": "+1-312-555-0629",
+    "location": "Chicago, IL",
+    "linkedin": "linkedin.com/in/marcusjohnson-swe"
+  },
+  "summary": "Full-stack engineer with 6 years of experience across frontend, backend, and DevOps. Quick learner who has pivoted across multiple technology stacks. Comfortable in high-growth, ambiguous environments.",
+  "education": [
+    {
+      "degree": "B.S. Information Systems",
+      "institution": "University of Illinois at Chicago",
+      "graduation_year": 2018,
+      "gpa": 3.21,
+      "notes": "Minor in Business Administration"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Software Engineer III",
+      "company": "Crescent Health (Series B healthtech)",
+      "location": "Chicago, IL",
+      "start_date": "2024-01",
+      "end_date": "present",
+      "responsibilities": [
+        "Building HIPAA-compliant patient portal using React, Node.js, and PostgreSQL.",
+        "Implemented real-time appointment scheduling with WebSocket-based notifications.",
+        "Set up CI/CD pipelines with GitHub Actions and deployed to AWS ECS."
+      ]
+    },
+    {
+      "_grey_area": "FREQUENT JOB HOPPING — 4 employers in 5 years, with the shortest tenure being 7 months",
+      "_flag": "Stability Concern",
+      "title": "Full Stack Developer",
+      "company": "Orion Digital Agency",
+      "location": "Chicago, IL",
+      "start_date": "2023-02",
+      "end_date": "2023-12",
+      "responsibilities": [
+        "Developed client-facing dashboards using Next.js and Tailwind CSS.",
+        "Integrated third-party APIs (Stripe, Twilio, SendGrid) for SaaS clients.",
+        "Left after 10 months due to company-wide layoffs (RIF of 40% staff)."
+      ],
+      "departure_reason": "Layoff (company reduction in force)"
+    },
+    {
+      "title": "Backend Developer",
+      "company": "QuantumLeap Analytics",
+      "location": "Remote",
+      "start_date": "2022-05",
+      "end_date": "2023-01",
+      "responsibilities": [
+        "Built data ingestion pipelines using Python and Apache Kafka.",
+        "Developed REST APIs with FastAPI for internal analytics dashboard.",
+        "Left after 7 months; role was misrepresented during hiring (promised ML work, actual work was CRUD APIs)."
+      ],
+      "departure_reason": "Voluntary — role mismatch",
+      "_grey_area": "SHORT TENURE — Only 7 months. Candidate claims role was misrepresented."
+    },
+    {
+      "title": "Junior Software Engineer",
+      "company": "BlueLine Systems",
+      "location": "Chicago, IL",
+      "start_date": "2020-08",
+      "end_date": "2022-04",
+      "responsibilities": [
+        "Maintained and extended a legacy Java/Spring Boot application for logistics management.",
+        "Wrote unit and integration tests, improving code coverage from 34% to 78%.",
+        "Participated in on-call rotation for production support."
+      ]
+    },
+    {
+      "_grey_area": "COVID-ERA GAP — 14 months between graduation and first relevant tech job",
+      "_flag": "Early Career Gap",
+      "title": "IT Support Technician",
+      "company": "Various (contract/temp work)",
+      "location": "Chicago, IL",
+      "start_date": "2018-06",
+      "end_date": "2020-07",
+      "responsibilities": [
+        "Provided desktop support and basic network troubleshooting for small businesses.",
+        "Self-taught web development during evenings (completed freeCodeCamp and Odin Project).",
+        "Freelanced building WordPress sites for local businesses."
+      ],
+      "notes": "The candidate spent ~2 years in IT support/freelance before landing a software engineering role. This early career period may raise questions about engineering depth, but is common for self-taught transitions."
+    }
+  ],
+  "skills": {
+    "languages": ["JavaScript", "TypeScript", "Python", "Java", "SQL"],
+    "frontend": ["React", "Next.js", "Tailwind CSS", "HTML/CSS"],
+    "backend": ["Node.js", "Express", "FastAPI", "Spring Boot"],
+    "databases": ["PostgreSQL", "MongoDB", "Redis"],
+    "devops": ["Docker", "GitHub Actions", "AWS (ECS, S3, RDS)", "Terraform (basic)"],
+    "other": ["Kafka", "WebSockets", "REST API design"]
+  },
+  "certifications": [
+    { "name": "AWS Certified Cloud Practitioner", "year": 2022 }
+  ],
+  "flags": [
+    {
+      "type": "Stability Concern",
+      "severity": "medium",
+      "detail": "4 employers in 5 years (2018–2024). Shortest tenure was 7 months at QuantumLeap Analytics. While one departure was due to layoffs (Orion Digital) and the early career period involved contract work, the pattern may indicate a flight risk.",
+      "recommendation": "Discuss career trajectory and what the candidate is looking for in terms of long-term growth. Verify layoff claim with Orion Digital HR if possible."
+    },
+    {
+      "type": "Early Career Gap",
+      "severity": "low",
+      "detail": "~2 years (2018–2020) spent in IT support and freelance web development before transitioning to software engineering. Not unusual for self-taught developers, but may result in weaker foundational CS knowledge compared to peers.",
+      "recommendation": "Include algorithmic/systems design questions in the technical interview to assess foundational depth."
+    }
+  ]
+}

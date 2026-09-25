@@ -1,0 +1,97 @@
+PRIYA MEHTA
+Senior Machine Learning Engineer
+priya.mehta@gmail.com | +1-650-555-0847 | Sunnyvale, CA
+linkedin.com/in/priyamehta-ml | github.com/priyamehta-ai
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+
+Machine learning engineer with 8 years of experience building production ML
+systems. Specialized in NLP, recommendation engines, and MLOps pipelines.
+Strong publication record and open-source contributions.
+
+================================================================================
+EXPERIENCE
+================================================================================
+
+SENIOR ML ENGINEER                                         Apr 2022 – Present
+Synthwave AI | San Francisco, CA
+
+  • Built a real-time recommendation engine processing 2.8B events/day using
+    Spark Streaming and custom TensorFlow Serving infrastructure.
+  • Designed an A/B testing framework for ML models, reducing experiment
+    cycle time from 3 weeks to 4 days.
+  • Led the MLOps initiative: implemented model versioning (MLflow), automated
+    retraining pipelines (Kubeflow), and feature stores (Feast).
+  • Published internal research on efficient fine-tuning of LLMs for
+    domain-specific classification tasks.
+
+HEAD OF AI                                                 Aug 2020 – Mar 2022
+NovaByte (Seed-stage startup, 4 employees total) | Remote
+
+  • Sole ML practitioner at a seed-stage startup. Built the entire ML stack
+    from scratch.
+  • Developed a text classification pipeline for contract analysis using
+    BERT fine-tuning.
+  • Managed no direct reports. The "Head of" title was self-assigned as the
+    only technical hire.
+  • Company failed to secure Series A and shut down in Q1 2022.
+
+  [NOTE: Title "Head of AI" is potentially misleading. The candidate was the
+   only ML/AI person at a 4-person company with no reports. This should not
+   be equated with Head-of-AI roles at established organizations.]
+
+ML ENGINEER II                                             Sep 2017 – Jul 2020
+Netflix | Los Gatos, CA
+
+  • Developed personalization models for the homepage recommendation system
+    serving 200M+ subscribers.
+  • Built offline evaluation framework that reduced model validation time
+    by 60%.
+  • Collaborated with the content understanding team on video-level
+    embedding models.
+  • Optimized TensorFlow model inference latency from 120ms to 22ms through
+    quantization and TensorRT.
+
+================================================================================
+EDUCATION
+================================================================================
+
+Ph.D. STUDIES, COMPUTER SCIENCE                            Stanford University, 2014 – 2017
+  Focus: Natural Language Processing
+  Completed all coursework and qualifying exams.
+  Dissertation on "Cross-lingual Transfer Learning" was NOT defended.
+  Status: ABD (All But Dissertation) — degree NOT conferred.
+
+  [NOTE: The resume lists this as "Ph.D. Studies" without clarifying that
+   the degree was not completed. This phrasing may mislead reviewers into
+   assuming a completed doctorate.]
+
+B.TECH. COMPUTER SCIENCE                                   IIT Bombay, 2014
+  GPA: 9.1/10.0
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+Languages:        Python, Scala, SQL, C++
+ML Frameworks:    TensorFlow, PyTorch, JAX, Hugging Face Transformers, scikit-learn
+MLOps:            MLflow, Kubeflow, Feast, Weights & Biases, BentoML
+Data Engineering: Apache Spark, Apache Kafka, Airflow, dbt
+Cloud:            AWS (SageMaker, EMR, Lambda), GCP (Vertex AI, BigQuery)
+Databases:        PostgreSQL, Redis, Elasticsearch, Pinecone
+
+================================================================================
+CERTIFICATIONS
+================================================================================
+
+  • Google Professional Machine Learning Engineer (2021)
+  • AWS Machine Learning Specialty (2023)
+
+================================================================================
+PUBLICATIONS
+================================================================================
+
+  • "Efficient Cross-lingual NER with Minimal Supervision" — ACL Workshop 2017
+  • "Scaling Feature Stores for Real-time Recommendations" — MLSys 2023

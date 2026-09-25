@@ -1,0 +1,111 @@
+{
+  "candidate": {
+    "name": "Priya Mehta",
+    "email": "priya.mehta@gmail.com",
+    "phone": "+1-650-555-0847",
+    "location": "Sunnyvale, CA",
+    "linkedin": "linkedin.com/in/priyamehta-ml",
+    "github": "github.com/priyamehta-ai"
+  },
+  "summary": "Machine learning engineer with 8 years of experience building production ML systems. Specialized in NLP, recommendation engines, and MLOps pipelines. Strong publication record and open-source contributions.",
+  "education": [
+    {
+      "degree": "Ph.D. Computer Science (ABD — Did Not Complete)",
+      "_grey_area": "Started a PhD but dropped out after 3 years without finishing the dissertation. Resume lists 'Ph.D. Studies' which is ambiguous.",
+      "institution": "Stanford University",
+      "start_year": 2014,
+      "end_year": 2017,
+      "focus": "Natural Language Processing",
+      "notes": "Completed all coursework and qualifying exams. Dissertation on 'Cross-lingual Transfer Learning' was not defended. Left to join industry."
+    },
+    {
+      "degree": "B.Tech. Computer Science",
+      "institution": "Indian Institute of Technology, Bombay",
+      "graduation_year": 2014,
+      "gpa": 9.1,
+      "gpa_scale": 10
+    }
+  ],
+  "experience": [
+    {
+      "title": "Senior ML Engineer",
+      "company": "Synthwave AI",
+      "location": "San Francisco, CA",
+      "start_date": "2022-04",
+      "end_date": "present",
+      "responsibilities": [
+        "Built a real-time recommendation engine processing 2.8B events/day using Spark Streaming and custom TensorFlow Serving infrastructure.",
+        "Designed an A/B testing framework for ML models, reducing experiment cycle time from 3 weeks to 4 days.",
+        "Led the MLOps initiative: implemented model versioning (MLflow), automated retraining pipelines (Kubeflow), and feature stores (Feast).",
+        "Published internal research on efficient fine-tuning of LLMs for domain-specific classification tasks."
+      ]
+    },
+    {
+      "_grey_area": "TITLE INFLATION — The title 'Head of AI' at a 4-person startup is ambiguous",
+      "_flag": "Title Ambiguity",
+      "title": "Head of AI",
+      "company": "NovaByte (Seed-stage startup, 4 employees total)",
+      "location": "Remote",
+      "start_date": "2020-08",
+      "end_date": "2022-03",
+      "responsibilities": [
+        "Sole ML practitioner at a seed-stage startup. Built the entire ML stack from scratch.",
+        "Developed a text classification pipeline for contract analysis using BERT fine-tuning.",
+        "Managed no direct reports. The 'Head of' title was self-assigned as the only technical hire.",
+        "Company failed to secure Series A and shut down in Q1 2022."
+      ],
+      "notes": "Title 'Head of AI' is misleading — the candidate was the only ML/AI person at a 4-person company. No leadership or management experience from this role."
+    },
+    {
+      "title": "ML Engineer II",
+      "company": "Netflix",
+      "location": "Los Gatos, CA",
+      "start_date": "2017-09",
+      "end_date": "2020-07",
+      "responsibilities": [
+        "Developed personalization models for the homepage recommendation system serving 200M+ subscribers.",
+        "Built offline evaluation framework that reduced model validation time by 60%.",
+        "Collaborated with the content understanding team on video-level embedding models.",
+        "Optimized TensorFlow model inference latency from 120ms to 22ms through quantization and TensorRT."
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["Python", "Scala", "SQL", "C++"],
+    "ml_frameworks": ["TensorFlow", "PyTorch", "JAX", "Hugging Face Transformers", "scikit-learn"],
+    "mlops": ["MLflow", "Kubeflow", "Feast", "Weights & Biases", "BentoML"],
+    "data_engineering": ["Apache Spark", "Apache Kafka", "Airflow", "dbt"],
+    "cloud": ["AWS (SageMaker, EMR, Lambda)", "GCP (Vertex AI, BigQuery)"],
+    "databases": ["PostgreSQL", "Redis", "Elasticsearch", "Pinecone"]
+  },
+  "certifications": [
+    { "name": "Google Professional Machine Learning Engineer", "year": 2021 },
+    { "name": "AWS Machine Learning Specialty", "year": 2023 }
+  ],
+  "publications": [
+    {
+      "title": "Efficient Cross-lingual NER with Minimal Supervision",
+      "venue": "ACL Workshop 2017",
+      "year": 2017
+    },
+    {
+      "title": "Scaling Feature Stores for Real-time Recommendations",
+      "venue": "MLSys 2023",
+      "year": 2023
+    }
+  ],
+  "flags": [
+    {
+      "type": "Education Ambiguity",
+      "severity": "medium",
+      "detail": "Resume lists 'Ph.D. Studies, Stanford University (2014–2017)' without clarifying that the degree was not completed. The candidate is ABD (All But Dissertation). This phrasing could mislead reviewers into assuming a completed doctorate.",
+      "recommendation": "Clarify degree completion status. Ask for official transcript or degree verification."
+    },
+    {
+      "type": "Title Inflation",
+      "severity": "low",
+      "detail": "'Head of AI' at NovaByte (2020–2022) was a self-assigned title at a 4-person seed-stage startup with no direct reports. The candidate was the sole ML practitioner.",
+      "recommendation": "Assess actual scope of leadership experience separately. Do not equate this with Head-of-AI roles at established companies."
+    }
+  ]
+}
